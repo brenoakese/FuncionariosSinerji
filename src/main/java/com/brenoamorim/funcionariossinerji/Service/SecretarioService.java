@@ -1,0 +1,33 @@
+package com.brenoamorim.funcionariossinerji.Service;
+
+import com.brenoamorim.funcionariossinerji.Entity.Data;
+import com.brenoamorim.funcionariossinerji.Entity.Secretario;
+import com.brenoamorim.funcionariossinerji.Repository.SecretarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class SecretarioService {
+
+    @Autowired
+    private SecretarioRepository secretarioRepository;
+
+
+    public Secretario salvarSecretario(String nome, int mes, int ano) {
+
+        try{
+        Data dataContratacao = new Data(mes, ano);
+
+        Secretario secretario = new Secretario(nome, dataContratacao);
+
+        secretarioRepository.save(secretario);
+
+        return secretario;
+
+        }catch (IllegalArgumentException e){
+            System.out.println("Erro ao cadastrar secretario: " + e.getMessage());
+        }
+
+        return null;
+    }
+}
