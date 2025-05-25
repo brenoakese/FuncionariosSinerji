@@ -40,6 +40,14 @@ public class Vendedor extends Funcionario {
     }
 
 
+    public void addVendasMes(Data data, float valorVenda) {
+        if (vendasMes.containsKey(data)) {
+            vendasMes.put(data, vendasMes.get(data) + valorVenda);
+        } else {
+            vendasMes.put(data, valorVenda);
+        }
+    }
+
     @Override
     public double salarioMes(Data data) {
         int anosDeServico = this.getAnosDeServico(data);
