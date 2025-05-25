@@ -48,6 +48,8 @@ public class Secretario extends Funcionario{
 
         int anosDeServico = this.getAnosDeServico(data);
 
+        System.out.println("Anos de serviço: " + anosDeServico);
+
         if (anosDeServico > 0) {
 
             return (this.getSalarioFixo() + (anosDeServico * 1000)) * BENEFICIO;

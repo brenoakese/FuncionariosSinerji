@@ -49,7 +49,7 @@ public abstract class Funcionario {
     }
 
     public int getAnosDeServico(Data data) {
-        LocalDate dataAtual = LocalDate.of(
+        LocalDate dataComparacao = LocalDate.of(
                 data.getAno(),
                 data.getMes(),
                 1
@@ -60,7 +60,7 @@ public abstract class Funcionario {
                 1
         );
 
-        Period periodo = Period.between(dataContratacao, dataAtual);
+        Period periodo = Period.between(dataContratacao, dataComparacao);
         int anosDeServico = periodo.getYears();
         return anosDeServico;
     }

@@ -24,7 +24,7 @@ public class Vendedor extends Funcionario {
         if (anosDeServico > 0) {
 
             if (vendasMes.containsKey(data)){
-                var salarioTotalMes = (this.getSalarioFixo() + (anosDeServico * 1800)) + (vendasMes.get(data) * BENEFICIO);
+                var salarioTotalMes = (this.getSalarioFixo() + (anosDeServico * 1800)) + (this.vendasMes.get(data) * BENEFICIO);
 
                 return salarioTotalMes;
             }
@@ -33,7 +33,7 @@ public class Vendedor extends Funcionario {
         }
 
         if (vendasMes.containsKey(data)){
-            return this.getSalarioFixo() + (vendasMes.get(data) * BENEFICIO);
+            return this.getSalarioFixo() + (this.vendasMes.get(data) * BENEFICIO);
         }
 
         return this.getSalarioFixo();
@@ -41,14 +41,14 @@ public class Vendedor extends Funcionario {
 
 
     public void addVendasMes(Data data, float valorVenda) {
-        if (vendasMes.containsKey(data)) {
-            vendasMes.put(data, vendasMes.get(data) + valorVenda);
+        if (this.vendasMes.containsKey(data)) {
+            this.vendasMes.put(data, vendasMes.get(data) + valorVenda);
         } else {
-            vendasMes.put(data, valorVenda);
+            this.vendasMes.put(data, valorVenda);
         }
     }
 
-    @Override
+    @ Override
     public double salarioMes(Data data) {
         int anosDeServico = this.getAnosDeServico(data);
 
@@ -62,9 +62,13 @@ public class Vendedor extends Funcionario {
     public double valorTotalBeneficiosMes(Data data) {
 
         if (vendasMes.containsKey(data)){
-            return vendasMes.get(data) * BENEFICIO;
+            return this.vendasMes.get(data) * BENEFICIO;
         }
 
         return 0;
+    }
+
+    public Map<Data, Float> getVendasMes() {
+        return this.vendasMes;
     }
 }

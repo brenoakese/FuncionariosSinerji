@@ -1,5 +1,6 @@
 package com.brenoamorim.funcionariossinerji.Service;
 
+import com.brenoamorim.funcionariossinerji.DTO.FuncionarioDTO;
 import com.brenoamorim.funcionariossinerji.Entity.Data;
 import com.brenoamorim.funcionariossinerji.Entity.Secretario;
 import com.brenoamorim.funcionariossinerji.Repository.SecretarioRepository;
@@ -29,5 +30,19 @@ public class SecretarioService {
         }
 
         return null;
+    }
+
+    public double getBeneficioMes(FuncionarioDTO funcionarioDTO, int dia, int mes) {
+        try{
+            Secretario secretario = new Secretario(funcionarioDTO.nome(), funcionarioDTO.dataContratacao());
+            Data data = new Data(dia, mes);
+
+            return secretario.valorTotalBeneficiosMes(data);
+
+        }catch (IllegalArgumentException e){
+            System.out.println("Erro ao calcular beneficio: " + e.getMessage());
+            return 0.0;
+        }
+
     }
 }
