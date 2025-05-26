@@ -41,9 +41,13 @@ src/main/java/com/brenoamorim/funcionariossinerji/
 │   ├── Gerente.java
 
 │   ├── Secretario.java
+
 │   └── Vendedor.java
+
 ├── Enum/
+
 │   └── Cargo.java
+
 ├── Repository/
 
 │   ├── GerenteRepository.java
