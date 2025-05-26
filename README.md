@@ -92,51 +92,73 @@ http://localhost:8080/swagger-ui.html
 
 Base URL: /funcionarios
 1. POST /salarioTotal
+   
 Calcula o valor total pago (salário + benefício) a uma lista de funcionários em um mês específico.
 Parâmetros:
 
 mes (query param): Mês de referência (1-12)
 ano (query param): Ano de referência
+
 Body: Lista de FuncionarioDTO
 
 2. POST /salario
+   
 Calcula o total pago somente em salários (sem benefícios) no mês.
+
 Parâmetros:
 
 mes (query param): Mês de referência (1-12)
+
 ano (query param): Ano de referência
+
 Body: Lista de FuncionarioDTO
 
 3. POST /beneficios
+   
 Calcula o total pago em benefícios para funcionários que recebem benefícios.
+
 Parâmetros:
 
 mes (query param): Mês de referência (1-12)
+
 ano (query param): Ano de referência
+
 Body: Lista de FuncionarioDTO (apenas Secretários e Vendedores)
 
 4. POST /maiorSalario/mes
+   
 Retorna o funcionário que recebeu o maior valor no mês.
+
 Parâmetros:
 
 mes (query param): Mês de referência (1-12)
+
 ano (query param): Ano de referência
+
 Body: Lista de FuncionarioDTO
 
 5. POST /maiorBeneficio/mes
+   
 Retorna o nome do funcionário que recebeu o maior valor em benefícios no mês.
+
 Parâmetros:
 
 mes (query param): Mês de referência (1-12)
+
 ano (query param): Ano de referência
+
 Body: Lista de FuncionarioDTO (apenas Secretários e Vendedores)
 
 6. POST /vendedor/maisVendeu/mes
+   
 Retorna o vendedor que mais vendeu no mês.
+
 Parâmetros:
 
 mes (query param): Mês de referência (1-12)
+
 ano (query param): Ano de referência
+
 Body: Lista de FuncionarioDTO (apenas Vendedores)
 
 📝 Estrutura do DTO
