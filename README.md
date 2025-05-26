@@ -72,17 +72,13 @@ Passos para execução
 
 Clone o repositório
 
-bashgit clone <url-do-repositorio>
+git clone <url-do-repositorio>
 
 cd funcionarios-sinerji
 
 Compile o projeto
 
-bashmvn clean compile
-
 Execute a aplicação
-
-bashmvn spring-boot:run
 
 Acesse a documentação Swagger
 
