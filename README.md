@@ -1,10 +1,10 @@
-API Funcionários
+## API Funcionários
 
-📋 Descrição
+## Descrição
 
-API REST desenvolvida em Java para gerenciamento de funcionários e cálculo de salários e benefícios de uma empresa. O sistema contempla três tipos de cargos (Secretário, Vendedor e Gerente) com suas respectivas regras de remuneração.
+API REST desenvolvida em Java para gerenciamento de funcionários e cálculo de salários e benefícios de uma empresa. O sistema possui três tipos de cargos (Secretário, Vendedor e Gerente) com suas respectivas regras de remuneração.
 
-🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 Java 21
 
@@ -14,13 +14,17 @@ Maven (gerenciamento de dependências)
 
 Swagger (documentação da API)
 
-📊 Estrutura de Cargos e Remuneração
+# Estrutura de Cargos e Remuneração
 
 | Cargo     | Salário Base | Adicional por Ano | Benefício                            |
 |-----------|--------------|-------------------|--------------------------------------|
 | Secretário| R$ 7.000,00  | R$ 1.000,00        | 20% sobre o salário                  |
 | Vendedor  | R$ 12.000,00 | R$ 1.800,00        | 30% sobre o valor vendido (R$ 1.000) |
 | Gerente   | R$ 20.000,00 | R$ 3.000,00        | Não possui                           |
+
+# Organização de Pacotes e Arquivos
+
+```bash
 
 src/main/java/com/brenoamorim/funcionariossinerji/
 
@@ -63,8 +67,9 @@ src/main/java/com/brenoamorim/funcionariossinerji/
     ├── SecretarioService.java
     
     └── VendedorService.java
+```
     
-🚀 Como Executar
+# Como Executar
 
 Pré-requisitos
 
@@ -76,9 +81,13 @@ Passos para execução
 
 Clone o repositório
 
+```bash
 git clone <url-do-repositorio>
+```
 
+```bash
 cd funcionarios-sinerji
+```
 
 Compile o projeto
 
@@ -86,22 +95,24 @@ Execute a aplicação
 
 Acesse a documentação Swagger
 
+```bash
 http://localhost:8080/swagger-ui.html
-
-📚 Endpoints da API
+```
+# Endpoints da API
 
 Base URL: /funcionarios
-1. POST /salarioTotal
+### 1. POST /salarioTotal
    
 Calcula o valor total pago (salário + benefício) a uma lista de funcionários em um mês específico.
 Parâmetros:
 
 mes (query param): Mês de referência (1-12)
+
 ano (query param): Ano de referência
 
 Body: Lista de FuncionarioDTO
 
-2. POST /salario
+### 2. POST /salario
    
 Calcula o total pago somente em salários (sem benefícios) no mês.
 
@@ -113,7 +124,7 @@ ano (query param): Ano de referência
 
 Body: Lista de FuncionarioDTO
 
-3. POST /beneficios
+### 3. POST /beneficios
    
 Calcula o total pago em benefícios para funcionários que recebem benefícios.
 
@@ -125,7 +136,7 @@ ano (query param): Ano de referência
 
 Body: Lista de FuncionarioDTO (apenas Secretários e Vendedores)
 
-4. POST /maiorSalario/mes
+### 4. POST /maiorSalario/mes
    
 Retorna o funcionário que recebeu o maior valor no mês.
 
@@ -137,7 +148,7 @@ ano (query param): Ano de referência
 
 Body: Lista de FuncionarioDTO
 
-5. POST /maiorBeneficio/mes
+### 5. POST /maiorBeneficio/mes
    
 Retorna o nome do funcionário que recebeu o maior valor em benefícios no mês.
 
@@ -149,7 +160,7 @@ ano (query param): Ano de referência
 
 Body: Lista de FuncionarioDTO (apenas Secretários e Vendedores)
 
-6. POST /vendedor/maisVendeu/mes
+### 6. POST /vendedor/maisVendeu/mes
    
 Retorna o vendedor que mais vendeu no mês.
 
@@ -161,7 +172,8 @@ ano (query param): Ano de referência
 
 Body: Lista de FuncionarioDTO (apenas Vendedores)
 
-📝 Estrutura do DTO
+# Estrutura do DTO
+```
 json{
   "nome": "João Silva",
   "cargo": "VENDEDOR",
@@ -170,11 +182,13 @@ json{
     "ano": 2021
   }
 }
-💡 Exemplo de Uso
+```
+### Exemplo de Uso
 Exemplo de requisição para calcular salário total:
 
 POST http://localhost:8080/funcionarios/salarioTotal?mes=12&ano=2021
 
+```
 json[
 
   {
@@ -200,14 +214,19 @@ json[
   }
   
 ]
-⚠️ Observações Importantes
+```
+## Observações Importantes
 
-Limitações Conhecidas
+Os Repositorys não são uma interface, pois não há interação com o banco de dados, estão fazendo o papel de persistir os dados em uma lista enquanto o programa roda. 
+
+### Limitações Conhecidas
 
 Sistema de Vendas: A lógica para registro de vendas dos vendedores está simplificada, utilizando valores fixos para demonstração (R$ 1.000,00)
 Persistência: Os dados são armazenados em memória durante a execução da aplicação
 
-Validações Implementadas
+
+
+### Validações Implementadas
 
 Validação de datas (mês: 1-12, ano: até 2025)
 Verificação de cargos válidos para cada endpoint
