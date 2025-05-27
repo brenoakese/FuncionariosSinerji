@@ -38,12 +38,19 @@ public class Gerente extends Funcionario {
     @Override
     public Double salarioMes(Data data) {
 
-        int anosDeServico = this.getAnosDeServico(data);
+        try{
 
-        if (anosDeServico > 0) {
-            return this.getSalarioFixo() + (anosDeServico * 3000);
+            int anosDeServico = this.getAnosDeServico(data);
+
+            if (anosDeServico > 0) {
+                return this.getSalarioFixo() + (anosDeServico * 3000);
+            }
+
+            return this.getSalarioFixo();
+        }catch (IllegalArgumentException e){
+            System.out.println("Erro ao calcular salário do gerente: " + e.getMessage());
         }
 
-        return this.getSalarioFixo();
+        return null;
     }
 }

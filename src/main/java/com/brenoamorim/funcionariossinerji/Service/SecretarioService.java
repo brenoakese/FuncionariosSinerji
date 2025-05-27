@@ -36,7 +36,7 @@ public class SecretarioService {
 
     public double getBeneficioMes(FuncionarioDTO funcionarioDTO, int dia, int mes) {
         try{
-            Secretario secretario = new Secretario(funcionarioDTO.nome(), funcionarioDTO.dataContratacao());
+            Secretario secretario = this.getSecretario(funcionarioDTO.nome());
             Data data = new Data(dia, mes);
 
             return secretario.valorTotalBeneficiosMes(data);

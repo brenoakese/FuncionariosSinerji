@@ -16,13 +16,21 @@ public class Secretario extends Funcionario{
     @Override
     public Double salarioMes(Data data) {
 
-        int anosDeServico = this.getAnosDeServico(data);
+        try{
 
-        if (anosDeServico > 0) {
-            return this.getSalarioFixo() + (anosDeServico * 1000);
+            int anosDeServico = this.getAnosDeServico(data);
+
+            if (anosDeServico > 0) {
+                return this.getSalarioFixo() + (anosDeServico * 1000);
+            }
+
+            return this.getSalarioFixo();
+
+        }catch (IllegalArgumentException e){
+            System.out.println("Erro ao calcular salário do secretário: " + e.getMessage());
         }
 
-        return this.getSalarioFixo();
+        return null;
     }
 
 

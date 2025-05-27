@@ -61,7 +61,7 @@ public class FuncionariosController {
     }
 
     @Operation(summary = "receba uma lista de funcionários, mês e ano e retorne o total pago\n" +
-            "somente em salários no mês. Também Salva os funcionários em uma lista")
+            "somente em salários no mês.")
     @PostMapping("/salario")
     public ResponseEntity<List<String>> getSalario(@RequestBody List<FuncionarioDTO> funcionarios, @RequestParam int mes, @RequestParam int ano) {
 
@@ -74,9 +74,9 @@ public class FuncionariosController {
                     try {
                         Funcionario funcionario;
                         switch (funcionarioDTO.cargo()) {
-                            case GERENTE -> funcionario = gerenteService.salvarGerente(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
-                            case VENDEDOR -> funcionario = vendedorService.salvarVendedor(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
-                            case SECRETARIO -> funcionario = secretarioService.salvarSecretario(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
+                            case GERENTE -> funcionario = gerenteService.getGerente(funcionarioDTO.nome());
+                            case VENDEDOR -> funcionario = vendedorService.getVendedor(funcionarioDTO.nome());
+                            case SECRETARIO -> funcionario = secretarioService.getSecretario(funcionarioDTO.nome());
                             default -> throw new IllegalArgumentException("Cargo desconhecido: " + funcionarioDTO.cargo());
                         }
                         return funcionario.getNome() + " - " + funcionario.salarioMes(new Data(mes, ano));
@@ -94,6 +94,8 @@ public class FuncionariosController {
     @PostMapping("/beneficios")
     public ResponseEntity<Double> getBeneficios(@RequestBody List<FuncionarioDTO> funcionarios, @RequestParam int mes, @RequestParam int ano) {
         boolean temGerente = funcionarios.stream().anyMatch(funcionarioDTO -> funcionarioDTO.cargo() == Cargo.GERENTE);
+
+        System.out.println(temGerente);
 
         if (funcionarios.isEmpty()) {
             return ResponseEntity.badRequest().body(null);

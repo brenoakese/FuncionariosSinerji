@@ -54,7 +54,7 @@ public class Vendedor extends Funcionario {
         }
     }
 
-    @ Override
+    @Override
     public Double salarioMes(Data data) {
         try{
 

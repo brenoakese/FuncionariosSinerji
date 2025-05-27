@@ -34,16 +34,20 @@ public class VendedorService {
     }
 
 
-    public double getBeneficioMes(FuncionarioDTO funcionarioDTO, int mes, int ano) {
+    public Double getBeneficioMes(FuncionarioDTO funcionarioDTO, int mes, int ano) {
         try {
-            Vendedor vendedor = new Vendedor(funcionarioDTO.nome(), funcionarioDTO.dataContratacao());
+            Vendedor vendedor = this.getVendedor(funcionarioDTO.nome());
+
+            if (vendedor == null) {
+                throw new IllegalArgumentException("Vendedor não encontrado: " + funcionarioDTO.nome());
+            }
             Data data = new Data(mes, ano);
 
             return vendedor.valorTotalBeneficiosMes(data);
 
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao calcular beneficio: " + e.getMessage());
-            return 0.0;
+            return null;
         }
     }
 
