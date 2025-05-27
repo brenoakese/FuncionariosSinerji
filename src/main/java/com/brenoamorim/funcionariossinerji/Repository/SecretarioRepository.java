@@ -22,4 +22,13 @@ public class SecretarioRepository {
     public List<Secretario> getSecretarios() {
         return secretarios;
     }
+
+    public Secretario findByNome(String nome) {
+        for (Secretario secretario : secretarios) {
+            if (secretario.getNome().equals(nome)) {
+                return secretario;
+            }
+        }
+        return null;
+    }
 }

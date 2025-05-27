@@ -52,4 +52,20 @@ public class SecretarioService {
 
         return secretarioRepository.getSecretarios();
     }
+
+    public Secretario getSecretario(String nome) {
+        try {
+            Secretario secretario = secretarioRepository.findByNome(nome);
+
+            if (secretario == null) {
+                throw new IllegalArgumentException("Secretário não encontrado: " + nome);
+            }
+
+            return secretario;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao buscar secretário: " + e.getMessage());
+        }
+
+        return null;
+    }
 }

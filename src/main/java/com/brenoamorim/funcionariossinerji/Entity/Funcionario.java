@@ -60,12 +60,16 @@ public abstract class Funcionario {
                 1
         );
 
+        if (dataComparacao.isBefore(dataContratacao)) {
+            throw new IllegalArgumentException("A data de comparação não pode ser anterior à data de contratação.");
+        }
+
         Period periodo = Period.between(dataContratacao, dataComparacao);
         int anosDeServico = periodo.getYears();
         return anosDeServico;
     }
 
-    public abstract double salarioTotalMes(Data data);
+    public abstract Double salarioTotalMes(Data data);
 
-    public abstract double salarioMes(Data data);
+    public abstract Double salarioMes(Data data);
 }

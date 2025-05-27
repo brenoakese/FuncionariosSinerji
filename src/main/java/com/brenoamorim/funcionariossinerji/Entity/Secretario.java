@@ -13,7 +13,8 @@ public class Secretario extends Funcionario{
 
     }
 
-    public double salarioMes(Data data) {
+    @Override
+    public Double salarioMes(Data data) {
 
         int anosDeServico = this.getAnosDeServico(data);
 
@@ -26,21 +27,28 @@ public class Secretario extends Funcionario{
 
 
     @Override
-    public double salarioTotalMes(Data data) {
-        int anosDeServico = this.getAnosDeServico(data);
+    public Double salarioTotalMes(Data data) {
+        try {
 
-        if (anosDeServico > 0) {
-            var salarioTotalMes = this.getSalarioFixo() + (anosDeServico * 1000);
+            int anosDeServico = this.getAnosDeServico(data);
 
-            salarioTotalMes += salarioTotalMes * BENEFICIO;
+            if (anosDeServico > 0) {
+                var salarioTotalMes = this.getSalarioFixo() + (anosDeServico * 1000);
 
-            this.setSalarioFixo(salarioTotalMes);
+                salarioTotalMes += salarioTotalMes * BENEFICIO;
 
-            return salarioTotalMes;
+                this.setSalarioFixo(salarioTotalMes);
+
+                return salarioTotalMes;
+            }
+
+            return this.getSalarioFixo() * (1 + BENEFICIO);
+
+        }catch (IllegalArgumentException e){
+            System.out.println("Erro ao calcular salário total do secretário: " + e.getMessage());
         }
 
-        return this.getSalarioFixo() * (1 + BENEFICIO);
-
+        return null;
     }
 
 

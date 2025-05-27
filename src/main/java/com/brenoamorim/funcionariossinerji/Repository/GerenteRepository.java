@@ -22,4 +22,13 @@ public class GerenteRepository {
     public List<Gerente> getGerentes() {
         return gerentes;
     }
+
+    public Gerente findByNome(String nome) {
+        for (Gerente gerente : gerentes) {
+            if (gerente.getNome().equals(nome)) {
+                return gerente;
+            }
+        }
+        return null;
+    }
 }

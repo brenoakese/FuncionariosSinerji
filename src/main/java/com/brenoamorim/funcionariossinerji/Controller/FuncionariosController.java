@@ -30,7 +30,7 @@ public class FuncionariosController {
 
 
     @Operation(summary = "recebe uma lista de funcionários, mês e ano e retorna o valor total\n" +
-            "pago (salário e benefício) a esses funcionários no mês. Também Salva os funcionários em uma lista")
+            "pago (salário e benefício) a esses funcionários no mês.")
     @PostMapping("/salarioTotal")
     public ResponseEntity<List<String>> getSalarioTotal(@RequestBody List<FuncionarioDTO> funcionarios, @RequestParam int mes, @RequestParam int ano) {
 
@@ -45,11 +45,11 @@ public class FuncionariosController {
 
                     switch (funcionarioDTO.cargo()) {
                         case GERENTE ->
-                                funcionario = gerenteService.salvarGerente(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
+                                funcionario = gerenteService.getGerente(funcionarioDTO.nome());
                         case VENDEDOR ->
-                                funcionario = vendedorService.salvarVendedor(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
+                                funcionario = vendedorService.getVendedor(funcionarioDTO.nome());
                         case SECRETARIO ->
-                                funcionario = secretarioService.salvarSecretario(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
+                                funcionario = secretarioService.getSecretario(funcionarioDTO.nome());
                         default -> throw new IllegalArgumentException("Cargo desconhecido: " + funcionarioDTO.cargo());
                     }
 

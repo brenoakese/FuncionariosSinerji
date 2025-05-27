@@ -77,6 +77,23 @@ public class VendedorService {
         }
     }
 
+    public Vendedor getVendedor(String nome) {
+        try{
+            Vendedor vendedor = vendedorRepository.findByNome(nome);
+
+            if (vendedor == null) {
+                throw new IllegalArgumentException("Vendedor não encontrado: " + nome);
+            }
+
+            return  vendedor;
+
+        }catch (IllegalArgumentException e){
+            System.out.println("Erro ao obter vendedor: "+ e.getMessage());
+        }
+
+        return null;
+    }
+
     public List<Vendedor> listarVendedores() {
             return vendedorRepository.getVendedores();
     }

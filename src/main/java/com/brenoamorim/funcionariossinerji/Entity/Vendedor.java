@@ -18,25 +18,31 @@ public class Vendedor extends Funcionario {
     }
 
     @Override
-    public double salarioTotalMes(Data data) {
-        int anosDeServico = this.getAnosDeServico(data);
+    public Double salarioTotalMes(Data data) {
+        try {
+            int anosDeServico = this.getAnosDeServico(data);
 
-        if (anosDeServico > 0) {
+            if (anosDeServico > 0) {
 
-            if (vendasMes.containsKey(data)){
-                var salarioTotalMes = (this.getSalarioFixo() + (anosDeServico * 1800)) + (this.vendasMes.get(data) * BENEFICIO);
+                if (vendasMes.containsKey(data)){
+                    var salarioTotalMes = (this.getSalarioFixo() + (anosDeServico * 1800)) + (this.vendasMes.get(data) * BENEFICIO);
 
-                return salarioTotalMes;
+                    return salarioTotalMes;
+                }
+
+                return this.getSalarioFixo() + (anosDeServico * 1800);
             }
 
-            return this.getSalarioFixo() + (anosDeServico * 1800);
-        }
+            if (vendasMes.containsKey(data)){
+                return this.getSalarioFixo() + (this.vendasMes.get(data) * BENEFICIO);
+            }
 
-        if (vendasMes.containsKey(data)){
-            return this.getSalarioFixo() + (this.vendasMes.get(data) * BENEFICIO);
-        }
+            return this.getSalarioFixo();
 
-        return this.getSalarioFixo();
+        }catch (IllegalArgumentException e){
+            System.out.println("Erro ao calcular salário total do vendedor: " + e.getMessage());
+        }
+        return null;
     }
 
 
@@ -49,14 +55,21 @@ public class Vendedor extends Funcionario {
     }
 
     @ Override
-    public double salarioMes(Data data) {
-        int anosDeServico = this.getAnosDeServico(data);
+    public Double salarioMes(Data data) {
+        try{
 
-        if (anosDeServico > 0) {
-            return this.getSalarioFixo() + (anosDeServico * 1800);
+            int anosDeServico = this.getAnosDeServico(data);
+
+            if (anosDeServico > 0) {
+                return this.getSalarioFixo() + (anosDeServico * 1800);
+            }
+
+            return this.getSalarioFixo();
+
+        }catch (IllegalArgumentException e){
+            System.out.println("Erro ao calcular salário do vendedor: " + e.getMessage());
         }
-
-        return this.getSalarioFixo();
+        return null;
     }
 
     public double valorTotalBeneficiosMes(Data data) {

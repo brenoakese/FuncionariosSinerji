@@ -2,6 +2,8 @@ package com.brenoamorim.funcionariossinerji.Entity;
 
 import com.brenoamorim.funcionariossinerji.Enum.Cargo;
 
+import java.sql.SQLOutput;
+
 public class Gerente extends Funcionario {
 
 
@@ -11,25 +13,32 @@ public class Gerente extends Funcionario {
     }
 
     @Override
-    public double salarioTotalMes(Data data) {
+    public Double salarioTotalMes(Data data) {
 
-        int anosDeServico = this.getAnosDeServico(data);
+        try{
+            int anosDeServico = this.getAnosDeServico(data);
 
-        if (anosDeServico > 0) {
-            int adicional = anosDeServico * 3000;
+            if (anosDeServico > 0) {
+                int adicional = anosDeServico * 3000;
 
-            var salarioTotalMes = this.getSalarioFixo() + adicional;
+                var salarioTotalMes = this.getSalarioFixo() + adicional;
 
-            return salarioTotalMes;
+                return salarioTotalMes;
+            }
+
+            return this.getSalarioFixo();
+
+        }catch (IllegalArgumentException e){
+
+            System.out.println("Erro ao calcular salário total do gerente: " + e.getMessage());
         }
-
-        return this.getSalarioFixo();
+        return null;
     }
 
     @Override
-    public double salarioMes(Data data) {
+    public Double salarioMes(Data data) {
 
-        int anosDeServico = getAnosDeServico(data);
+        int anosDeServico = this.getAnosDeServico(data);
 
         if (anosDeServico > 0) {
             return this.getSalarioFixo() + (anosDeServico * 3000);
