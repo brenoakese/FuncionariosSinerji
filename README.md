@@ -246,11 +246,15 @@ json[
 
 Os Repositorys não são uma interface, pois não há interação com o banco de dados, estão fazendo o papel de persistir os dados em uma lista enquanto a aplicação roda. 
 
+
 ### Limitações Conhecidas
 
-Sistema de Vendas: A lógica para registro de vendas dos vendedores está simplificada, utilizando valores fixos para demonstração (R$ 1.000,00)
-Persistência: Os dados são armazenados em memória durante a execução da aplicação
 
+Os Cargos devem ser escritos com letra MAIÚSCULA. Eu sei, isso é algo simples de se resolver. 
+
+OS FUNCIONÁRIOS JÁ SÃO CADASTRADOS PREVIAMENTE NO SISTEMA...
+
+endpoints só vão funcionar se os funcionários forem os mesmos cadastrados no sistema. Verifique a classe DataLoader
 
 
 ### Validações Implementadas
@@ -260,14 +264,16 @@ Verificação de cargos válidos para cada endpoint
 Tratamento de listas vazias
 Validação de funcionários com benefícios
 
-🔧 Melhorias Futuras
+### Melhorias Futuras
 
  Implementar sistema completo de registro de vendas
  Adicionar persistência em banco de dados
  Implementar autenticação e autorização
  Adicionar testes unitários e de integração
  Melhorar tratamento de exceções
- Implementar cache para consultas frequentes
+ Implementar cache para consultas frequente
+ Ajustes de lógica e na flexibilidade dos valores de entrada dos endPoints
+ 
 
 👨‍💻 Autor: Breno Amorim
 
