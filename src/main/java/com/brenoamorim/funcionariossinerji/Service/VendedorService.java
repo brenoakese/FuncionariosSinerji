@@ -53,7 +53,7 @@ public class VendedorService {
             Vendedor vendedor = vendedorRepository.findByNome(funcionarioDTO.nome());
 
             if (vendedor == null) {
-                throw new IllegalArgumentException("Vendedor não encontrado: " + vendedor.getNome());
+                throw new IllegalArgumentException("Vendedor não encontrado: " + funcionarioDTO.nome());
             }
             Data data = new Data(mes, ano);
 
