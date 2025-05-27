@@ -7,6 +7,8 @@ import com.brenoamorim.funcionariossinerji.Repository.SecretarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SecretarioService {
 
@@ -44,5 +46,10 @@ public class SecretarioService {
             return 0.0;
         }
 
+    }
+
+    public List<Secretario> listarSecretarios() {
+
+        return secretarioRepository.getSecretarios();
     }
 }

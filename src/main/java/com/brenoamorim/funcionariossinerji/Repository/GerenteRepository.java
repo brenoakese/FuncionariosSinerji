@@ -18,4 +18,8 @@ public class GerenteRepository {
     public void save(Gerente gerente) {
         gerentes.add(gerente);
     }
+
+    public List<Gerente> getGerentes() {
+        return gerentes;
+    }
 }

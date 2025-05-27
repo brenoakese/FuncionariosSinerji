@@ -1,9 +1,7 @@
 package com.brenoamorim.funcionariossinerji.Controller;
 
 import com.brenoamorim.funcionariossinerji.DTO.FuncionarioDTO;
-import com.brenoamorim.funcionariossinerji.Entity.Data;
-import com.brenoamorim.funcionariossinerji.Entity.Funcionario;
-import com.brenoamorim.funcionariossinerji.Entity.Vendedor;
+import com.brenoamorim.funcionariossinerji.Entity.*;
 import com.brenoamorim.funcionariossinerji.Enum.Cargo;
 import com.brenoamorim.funcionariossinerji.Service.GerenteService;
 import com.brenoamorim.funcionariossinerji.Service.SecretarioService;
@@ -13,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -262,6 +261,28 @@ public class FuncionariosController {
         try {
             List<Vendedor> vendedores = vendedorService.listarVendedores();
             return ResponseEntity.ok(vendedores);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @Operation(summary = "Lista todos os funcionários cadastrados.")
+    @GetMapping("/listar-Funcionarios")
+    public ResponseEntity<List<String>> listarFuncionarios() {
+        try {
+            List<String> funcionarios = new ArrayList<>(vendedorService.listarVendedores().stream()
+                    .map(Vendedor::getNome)
+                    .toList());
+
+            funcionarios.addAll(secretarioService.listarSecretarios().stream()
+                    .map(Secretario::getNome)
+                    .toList());
+
+            funcionarios.addAll(gerenteService.listarGerentes().stream()
+                    .map(Gerente::getNome)
+                    .toList());
+
+            return ResponseEntity.ok(funcionarios);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
