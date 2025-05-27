@@ -18,4 +18,8 @@ public class SecretarioRepository {
     public void save(Secretario secretario) {
         secretarios.add(secretario);
     }
+
+    public List<Secretario> getSecretarios() {
+        return secretarios;
+    }
 }

@@ -7,6 +7,8 @@ import com.brenoamorim.funcionariossinerji.Repository.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VendedorService {
 
@@ -45,18 +47,24 @@ public class VendedorService {
         }
     }
 
-    public double getVendasMes(FuncionarioDTO funcionarioDTO, int mes, int ano, float valorVendasMes) {
+    public Double getVendasMes(FuncionarioDTO funcionarioDTO, int mes, int ano) {
         try {
-            Vendedor vendedor = new Vendedor(funcionarioDTO.nome(), funcionarioDTO.dataContratacao());
+
+            Vendedor vendedor = vendedorRepository.findByNome(funcionarioDTO.nome());
+
+            if (vendedor == null) {
+                throw new IllegalArgumentException("Vendedor não encontrado: " + vendedor.getNome());
+            }
             Data data = new Data(mes, ano);
 
+            Double valorVenda = vendedorRepository.getValorVendaVendedorData(vendedor, data);
 
+            return valorVenda;
 
-            return vendedor.getVendasMes().getOrDefault(data, 0.0f);
 
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao obter vendas: " + e.getMessage());
-            return 0.0;
+            return null;
         }
     }
 
@@ -66,6 +74,28 @@ public class VendedorService {
 
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao registrar venda: " + e.getMessage());
+        }
+    }
+
+    public List<Vendedor> listarVendedores() {
+        try {
+            return vendedorRepository.getVendedores();
+        } catch (Exception e) {
+            System.out.println("Erro ao listar vendedores: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    public Vendedor buscarVendedorPorNome(String nome) {
+        try {
+            Vendedor vendedor = vendedorRepository.findByNome(nome);
+            if (vendedor == null) {
+                throw new IllegalArgumentException("Vendedor não encontrado: " + nome);
+            }
+            return vendedor;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao buscar vendedor: " + e.getMessage());
+            return null;
         }
     }
 }

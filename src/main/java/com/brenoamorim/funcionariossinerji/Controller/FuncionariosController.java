@@ -227,14 +227,14 @@ public class FuncionariosController {
         for (FuncionarioDTO vendedorDTO : vendedores) {
             try {
 
-                double vendasMes = vendedorService.getVendasMes(vendedorDTO, mes, ano,1000);
+                double vendasMes = vendedorService.getVendasMes(vendedorDTO, mes, ano);
 
                 if (vendasMes > maiorVenda) {
                     maiorVenda = vendasMes;
                     vendedorQueMaisVendeu = vendedorDTO.nome();
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println("Erro ao processar vendedor " + vendedorDTO.nome() + ": " + e.getMessage());
+                System.out.println("Erro ao processar vendedor: " + e.getMessage());
             }
         }
 
@@ -243,6 +243,28 @@ public class FuncionariosController {
         }
 
         return ResponseEntity.ok(vendedorQueMaisVendeu + " - Vendas: R$ " + String.format("%.2f", maiorVenda));
+    }
+
+    @Operation(summary = "Registra uma venda para um vendedor específico.")
+    @PostMapping("/vendedor/registrarVenda")
+    public ResponseEntity<String> registrarVenda(@RequestParam String vendedorNome, @RequestParam int mes, @RequestParam int ano, @RequestParam float valorVenda) {
+        try {
+            vendedorService.registrarVenda(vendedorNome, mes, ano, valorVenda);
+            return ResponseEntity.ok("Venda registrada com sucesso para " + vendedorNome);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Erro ao registrar venda: " + e.getMessage());
+        }
+    }
+
+    @Operation(summary = "Lista todos os vendedores cadastrados.")
+    @GetMapping("/vendedores")
+    public ResponseEntity<List<Vendedor>> listarVendedores() {
+        try {
+            List<Vendedor> vendedores = vendedorService.listarVendedores();
+            return ResponseEntity.ok(vendedores);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
 
