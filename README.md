@@ -81,11 +81,11 @@ Passos para execução
 
 Clone o repositório
 
-```bash
+```
 git clone <url-do-repositorio>
 ```
 
-```bash
+```
 cd funcionarios-sinerji
 ```
 
@@ -93,11 +93,38 @@ Compile o projeto
 
 Execute a aplicação
 
+## Executando com Docker
+
+# Pré-requisitos
+
+Docker precisa estar instalado e rodando localmente
+
+# Passos
+1. Clone o repositório:
+   
+```
+git clone <url-do-repositorio>
+```
+
+```
+cd funcionarios-sinerji
+```
+
+2. Build da imagem Docker:
+
+```
+docker build -t funcionarios-api .
+```
+```
+docker run -p 8080:8080 funcionarios-api
+```
+
 Acesse a documentação Swagger
 
-```bash
+```
 http://localhost:8080/swagger-ui.html
 ```
+
 # Endpoints da API
 
 Base URL: /funcionarios
@@ -217,7 +244,7 @@ json[
 ```
 ## Observações Importantes
 
-Os Repositorys não são uma interface, pois não há interação com o banco de dados, estão fazendo o papel de persistir os dados em uma lista enquanto o programa roda. 
+Os Repositorys não são uma interface, pois não há interação com o banco de dados, estão fazendo o papel de persistir os dados em uma lista enquanto a aplicação roda. 
 
 ### Limitações Conhecidas
 
