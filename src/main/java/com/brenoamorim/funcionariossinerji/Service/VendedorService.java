@@ -51,14 +51,21 @@ public class VendedorService {
             Data data = new Data(mes, ano);
 
 
-            // Por enquanto usando valor de exemplo como no controller
-            vendedor.addVendasMes(data, valorVendasMes);
 
             return vendedor.getVendasMes().getOrDefault(data, 0.0f);
 
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao obter vendas: " + e.getMessage());
             return 0.0;
+        }
+    }
+
+    public void registrarVenda(String vendedorNome, int mes, int ano, float valorVenda) {
+        try {
+           vendedorRepository.registrarVenda(vendedorNome,valorVenda, mes, ano);
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao registrar venda: " + e.getMessage());
         }
     }
 }

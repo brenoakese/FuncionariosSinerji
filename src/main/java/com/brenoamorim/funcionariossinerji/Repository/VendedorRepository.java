@@ -1,5 +1,6 @@
 package com.brenoamorim.funcionariossinerji.Repository;
 
+import com.brenoamorim.funcionariossinerji.Entity.Data;
 import com.brenoamorim.funcionariossinerji.Entity.Vendedor;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +18,19 @@ public class VendedorRepository {
 
     public void save(Vendedor vendedor) {
         vendedores.add(vendedor);
+    }
+
+    public  List<Vendedor> getVendedores() {
+        return vendedores;
+    }
+
+    public void registrarVenda(String nome, float valor, int mes, int ano) {
+        for (Vendedor vendedor : vendedores) {
+            if (vendedor.getNome().equals(nome)) {
+                vendedor.addVendasMes(new Data(mes, ano),valor);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Vendedor não encontrado: " + nome);
     }
 }
