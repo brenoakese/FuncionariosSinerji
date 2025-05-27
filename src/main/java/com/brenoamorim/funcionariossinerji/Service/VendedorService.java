@@ -72,9 +72,17 @@ public class VendedorService {
         }
     }
 
-    public void registrarVenda(String vendedorNome, int mes, int ano, float valorVenda) {
+    public void registrarVenda(FuncionarioDTO vendedorDTO, int mes, int ano, float valorVenda) {
+
         try {
-           vendedorRepository.registrarVenda(vendedorNome,valorVenda, mes, ano);
+            Vendedor vendedor = new Vendedor(vendedorDTO.nome(), new Data( vendedorDTO.dataContratacao().getMes(), vendedorDTO.dataContratacao().getAno()));
+            Vendedor vendedorCadastrado = vendedorRepository.findByNome(vendedorDTO.nome());
+
+            if(vendedorCadastrado.equals(vendedor)) {
+                vendedorRepository.registrarVenda(vendedorCadastrado, valorVenda, mes, ano);
+            } else {
+                throw new IllegalArgumentException("Vendedor não encontrado: " + vendedorDTO.nome());
+            }
 
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao registrar venda: " + e.getMessage());

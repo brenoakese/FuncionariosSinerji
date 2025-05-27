@@ -41,15 +41,19 @@ public class VendedorRepository {
         return null;
     }
 
-    public void registrarVenda(String nome, float valor, int mes, int ano) {
+    public void registrarVenda(Vendedor vendedorCadastrado, float valor, int mes, int ano) {
         for (Vendedor vendedor : vendedores) {
-            if (vendedor.getNome().equals(nome)) {
-                vendedor.addVendasMes(new Data(mes, ano),valor);
-                return;
-            }
+             if(vendedorCadastrado.equals(vendedor)) {
+
+                 vendedor.addVendasMes(new Data(mes, ano), valor);
+
+                 return;
+             }
+
         }
-        throw new IllegalArgumentException("Vendedor não encontrado: " + nome);
+        throw new IllegalArgumentException("Vendedor não encontrado: " + vendedorCadastrado.getNome());
     }
+
 
     public Vendedor findByNome(String nome) {
         for (Vendedor vendedor : vendedores) {

@@ -21,25 +21,24 @@ public class Vendedor extends Funcionario {
     public Double salarioTotalMes(Data data) {
         try {
             int anosDeServico = this.getAnosDeServico(data);
+            double salarioBase = this.getSalarioFixo();
+
 
             if (anosDeServico > 0) {
-
-                if (vendasMes.containsKey(data)){
-                    var salarioTotalMes = (this.getSalarioFixo() + (anosDeServico * 1800)) + (this.vendasMes.get(data) * BENEFICIO);
-
-                    return salarioTotalMes;
-                }
-
-                return this.getSalarioFixo() + (anosDeServico * 1800);
+                salarioBase += anosDeServico * 1000;
             }
 
-            if (vendasMes.containsKey(data)){
-                return this.getSalarioFixo() + (this.vendasMes.get(data) * BENEFICIO);
+
+            double valorBeneficio = this.valorTotalBeneficiosMes(data);
+
+            if (valorBeneficio !=  0){
+                salarioBase += valorBeneficio;
+
+                return salarioBase;
             }
 
-            return this.getSalarioFixo();
-
-        }catch (IllegalArgumentException e){
+            return salarioBase;
+        } catch (IllegalArgumentException e) {
             System.out.println("Erro ao calcular salário total do vendedor: " + e.getMessage());
         }
         return null;
@@ -84,4 +83,6 @@ public class Vendedor extends Funcionario {
     public Map<Data, Float> getVendasMes() {
         return this.vendasMes;
     }
+
+
 }

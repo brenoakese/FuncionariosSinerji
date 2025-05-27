@@ -4,6 +4,7 @@ import com.brenoamorim.funcionariossinerji.Enum.Cargo;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 public abstract class Funcionario {
     private String nome;
@@ -72,4 +73,21 @@ public abstract class Funcionario {
     public abstract Double salarioTotalMes(Data data);
 
     public abstract Double salarioMes(Data data);
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true; // Same reference
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false; // Null or different class
+        }
+        Funcionario funcionario = (Funcionario) obj;
+        return nome.equals(funcionario.nome) && dataContratacao.equals(funcionario.dataContratacao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, dataContratacao);
+    }
 }

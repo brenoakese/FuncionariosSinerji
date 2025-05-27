@@ -138,15 +138,9 @@ public class FuncionariosController {
             Funcionario funcionario;
             try {
                 switch (funcionarioDTO.cargo()) {
-                    case GERENTE ->
-                            funcionario = gerenteService.salvarGerente(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
-                    case VENDEDOR -> {
-                         funcionario = vendedorService.salvarVendedor(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
-                        ((Vendedor) funcionario).addVendasMes(new Data(mes, ano), 1000); //Coloquei o valor de 1000 como exemplo, não estava especificado no enunciado como funcionaria a questão dos vendedores
-
-                    }
-                    case SECRETARIO ->
-                            funcionario = secretarioService.salvarSecretario(funcionarioDTO.nome(), funcionarioDTO.dataContratacao().getMes(), funcionarioDTO.dataContratacao().getAno());
+                    case GERENTE -> funcionario = gerenteService.getGerente(funcionarioDTO.nome());
+                    case VENDEDOR -> funcionario = vendedorService.getVendedor(funcionarioDTO.nome());
+                    case SECRETARIO -> funcionario = secretarioService.getSecretario(funcionarioDTO.nome());
                     default -> throw new IllegalArgumentException("Cargo desconhecido: " + funcionarioDTO.cargo());
                 }
 
@@ -248,10 +242,10 @@ public class FuncionariosController {
 
     @Operation(summary = "Registra uma venda para um vendedor específico.")
     @PostMapping("/vendedor/registrarVenda")
-    public ResponseEntity<String> registrarVenda(@RequestParam String vendedorNome, @RequestParam int mes, @RequestParam int ano, @RequestParam float valorVenda) {
+    public ResponseEntity<String> registrarVenda(@RequestBody FuncionarioDTO vendedor, @RequestParam int mes, @RequestParam int ano, @RequestParam float valorVenda) {
         try {
-            vendedorService.registrarVenda(vendedorNome, mes, ano, valorVenda);
-            return ResponseEntity.ok("Venda registrada com sucesso para " + vendedorNome);
+            vendedorService.registrarVenda(vendedor, mes, ano, valorVenda);
+            return ResponseEntity.ok("Venda registrada com sucesso para " + vendedor.nome());
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Erro ao registrar venda: " + e.getMessage());
         }
